@@ -104,6 +104,16 @@ def Disk1():
     turtle.penup()
     turtle.goto(-167,18)
     turtle.write("1")
+def drawDisk1():
+    turtle.pendown()
+    turtle.setheading(90)
+    turtle.forward(10)
+    turtle.setheading(0)
+    turtle.forward(20)
+    turtle.setheading(270)
+    turtle.forward(10)
+    turtle.hideturtle()
+    turtle.penup()
 def StickSet():
     StickA()
     StickB()
@@ -181,28 +191,58 @@ def disk2ToC():
     turtle.goto(127, -3)
     turtle.write("2")
     disk2Pos = "C"
+def disk3ToB():
+    turtle.goto(-40, 0)
+    turtle.pendown()
+    turtle.setheading(90)
+    turtle.forward(10)
+    turtle.setheading(0)
+    turtle.forward(60)
+    turtle.setheading(270)
+    turtle.forward(10)
+    turtle.setheading(0)
+    turtle.penup()
+    turtle.goto(-20, -3)
+    turtle.write("3")
+    disk3Pos = "B"
+def disk3ToC():
+    turtle.goto(110, 0)
+    turtle.pendown()
+    turtle.setheading(90)
+    turtle.forward(10)
+    turtle.setheading(0)
+    turtle.forward(60)
+    turtle.setheading(270)
+    turtle.forward(10)
+    turtle.setheading(0)
+    turtle.penup()
+    turtle.goto(125, -3)
+    turtle.write("3")
+    disk3Pos = "C"
+def disk1on2C():
+    disk2ToC()
+    turtle.setheading(0)
+    turtle.goto(130, 10)
+    turtle.pendown()
+    turtle.setheading(90)
+    turtle.forward(10)
+    turtle.setheading(0)
+    turtle.forward(20)
+    turtle.setheading(270)
+    turtle.forward(10)
+    turtle.hideturtle()
+    turtle.penup()
+    turtle.goto(133, 7)
+    turtle.write("1")
+    disk1Pos = "C"
+    if (disk3Pos == "A"):
+        Disk3()
 done = False
 print("Tower Of Hanoi\n\nRules:\n1. Only one disk can move at a time.\n"
       + "2. Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack.\n"
       + "3. No disk may be placed on top of a smaller disk.")
 SetUp()
-turtle.reset()
-StickSet()
-disk2ToC()
-turtle.setheading(0)
-turtle.goto(130, 10)
-turtle.pendown()
-turtle.setheading(90)
-turtle.forward(10)
-turtle.setheading(0)
-turtle.forward(20)
-turtle.setheading(270)
-turtle.forward(10)
-turtle.hideturtle()
-turtle.penup()
-turtle.goto(133, 7)
-turtle.write("1")
-disk1Pos = "C"
+
 while(done != True):
     print("Which disk do you want to move?\n(1, 2, 3)")
     disk = int(input())
@@ -213,14 +253,7 @@ while(done != True):
             turtle.reset()
             StickSet()
             turtle.goto(-170, 0)
-            turtle.pendown()
-            turtle.setheading(90)
-            turtle.forward(10)
-            turtle.setheading(0)
-            turtle.forward(20)
-            turtle.setheading(270)
-            turtle.forward(10)
-            turtle.penup()
+            drawDisk1()
             turtle.goto(-167, -3)
             turtle.setheading(0)
             turtle.write("1")
@@ -228,6 +261,10 @@ while(done != True):
                 disk2ToB()
             elif (disk2Pos == "C"):
                 disk2ToC()
+            if(disk3Pos == "B"):
+                disk3ToB()
+            elif(disk3Pos == "C"):
+                disk3ToC()
         elif(disk2Pos != "A" or disk3Pos == "A"):
             turtle.reset()
             StickSet()
@@ -246,19 +283,19 @@ while(done != True):
             turtle.goto(0,0)
             turtle.setheading(0)
             turtle.goto(-20, 0)
-            turtle.pendown()
-            turtle.setheading(90)
-            turtle.forward(10)
-            turtle.setheading(0)
-            turtle.forward(20)
-            turtle.setheading(270)
-            turtle.forward(10)
-            turtle.hideturtle()
-            turtle.penup()
+            drawDisk1()
             turtle.goto(-16, -2)
             turtle.write("1")
             disk1Pos = "B"
-            if(disk2Pos == "C"):
+            if(disk2Pos == "B"):
+                turtle.reset()
+                StickSet()
+                disk2ToB()
+                turtle.goto(-20, 10)
+                drawDisk1()
+                turtle.goto(-18, 7)
+                turtle.write("1")
+            elif(disk2Pos == "C"):
                 disk2ToC()
     if(disk == 1 and stick == "C"):
         if(disk2Pos != "C" and disk3Pos != "C"):
@@ -269,20 +306,22 @@ while(done != True):
             turtle.goto(0, 0)
             turtle.setheading(0)
             turtle.goto(130, 0)
-            turtle.pendown()
-            turtle.setheading(90)
-            turtle.forward(10)
-            turtle.setheading(0)
-            turtle.forward(20)
-            turtle.setheading(270)
-            turtle.forward(10)
-            turtle.hideturtle()
-            turtle.penup()
+            drawDisk1()
             turtle.goto(133, -3)
             turtle.write("1")
             disk1Pos = "C"
         elif(disk2Pos == "C" or disk3Pos != "C"):
             turtle.reset()
+            StickSet()
+            disk2ToC()
+            turtle.setheading(0)
+            turtle.goto(130, 10)
+            drawDisk1()
+            turtle.goto(133, 7)
+            turtle.write("1")
+            disk1Pos = "C"
+            if(disk3Pos == "A"):
+                Disk3()
     if(disk == 2 and stick == "B"):
         if(disk1Pos == "B"):
             Error()
@@ -350,7 +389,9 @@ while(done != True):
             turtle.goto(-20, -3)
             turtle.write("3")
             disk3Pos = "B"
-            if(disk1Pos == "C"):
+            if (disk1Pos == "C" and disk2Pos == "C"):
+                disk1on2C()
+            elif(disk1Pos == "C" and disk2Pos == "C"):
                 disk1ToC()
             elif(disk2Pos == "C"):
                 disk2ToC()
