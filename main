@@ -459,22 +459,8 @@ while(done != True):
             disk2Pos = "A"
             if(disk1Pos == "B" and disk3Pos != "B"):
                 disk1ToB()
-                if(disk3Pos == "C"):
+                if(disk3Pos == "C" and disk1Pos != "C"):
                     disk3ToC()
-            elif(disk1Pos == "B" and disk3Pos == "B"):
-                disk1on3B()
-            elif(disk1Pos == "C" and disk3Pos != "C"):
-                disk1ToC()
-                if(disk3Pos == "B"):
-                    disk3ToB()
-            elif(disk1Pos == "C" and disk3Pos == "C"):
-                turtle.reset()
-                StickSet()
-                disk3ToC()
-                turtle.goto(130,10)
-                drawDisk1()
-                turtle.goto(127,7)
-                turtle.write("1")
         elif(disk1Pos != "A" and disk3Pos == "A"):
             turtle.reset()
             StickSet()
@@ -484,6 +470,16 @@ while(done != True):
                 disk1ToB()
             elif(disk1Pos == "C"):
                 disk1ToC()
+        elif(disk1Pos == "B" and disk3Pos != "B"):
+            turtle.reset()
+            StickSet()
+            disk1ToB()
+            if(disk3Pos == "A"):
+                Disk3()
+            elif(disk3Pos == "C"):
+                disk3ToC()
+        
+
     if(disk == 2 and stick == "B"):
         if(disk1Pos == "B"):
             Error()
